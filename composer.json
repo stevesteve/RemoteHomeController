@@ -1,0 +1,12 @@
+{
+    "require": {
+        "twig/twig": "~1.18",
+        "klein/klein": "~2.1"
+    },
+    "require-dev": {
+        "filp/whoops": "~1.1"
+    },
+    "config": {
+    	"vendor-dir": "htdocs/vendor"
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "RemoteHomeController",
+  "version": "0.0.0",
+  "authors": [
+    "stevesteve <steve.l.exe@gmail.com>"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "jquery": "~2.1.3"
+  }
+}
