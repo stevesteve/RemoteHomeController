@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="bower/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="ext/core/media/core.css">
+	<title>Remote Home Controller</title>
+</head>
+<body>
+	<div id="master">
+		<div id="header">
+			<div id="logo">
+				<img src="ext/core/media/img/logodave.gif">
+			</div>
+			<!-- added by ext/relaisctrl -->
+			{% include 'relaisctrl/twig/powerbar.twig' %}
+			<!-- end ext/relaisctrl -->
+		</div>
+		<div id="main">
+			{% include 'core/twig/menu.twig' %}
+			<div id="content">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+	</div>
+</body>
+</html>

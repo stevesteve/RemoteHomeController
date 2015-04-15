@@ -1,0 +1,96 @@
+
+div {
+}
+
+body {
+}
+
+/* --- HEADER ---*/
+
+#header {
+	background-color: white;
+	max-width: 1324px;
+	margin: 0 auto;
+}
+
+/* ---- LOGO ----*/
+#logo {
+	text-align: center;
+	height: 96px;
+	padding: 10px;
+}
+
+/* ---- POWER BUTTONS ---- */
+#powerbuttons {
+	max-width: 1324px; /* 2*arrowbox + 8*powerbutton */
+	margin: 0px auto;
+	height: 148px;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	overflow: hidden;
+}
+
+.arrowbox {
+	float: left;
+	cursor: pointer;
+	height: 128px;
+	width: 50px;
+	margin: 10px;
+}
+.arrowbox.right {
+	float: right;
+}
+
+.powerbutton {
+	float: left;
+	cursor: pointer;
+	height: 128px;
+	width: 128px;
+	margin: 10px;
+}
+
+/* --- BODY --- */
+
+#main {
+	position: absolute;
+	max-width: 1324px; /* 2*arrowbox + 8*powerbutton */
+	top: 244px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0 auto;
+}
+
+/* ---- MENU ---- */
+
+#menu {
+	width: 100px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	background-color: black;
+}
+.menu-element.active {
+	background-color: white;
+}
+.menu-element {
+	cursor: pointer;
+	padding: 20px 18px;
+	margin-right: -2px; /* removes a black border on some mobile devices */
+}
+.menu-element > img {
+	width: 64px;
+	height: 64px;
+}
+
+/* ---- CONTENT ---- */
+
+#content {
+	position: relative;
+	background-color: white;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 100px;
+	right: 0;
+}
