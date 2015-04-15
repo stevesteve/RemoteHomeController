@@ -75,10 +75,15 @@ body {
 }
 .menu-element {
 	cursor: pointer;
-	padding: 20px 18px;
 	margin-right: -2px; /* removes a black border on some mobile devices */
 }
-.menu-element > img {
+.menu-element a {
+	display: block;
+	padding: 20px 18px;
+	width: 100px;
+	height: 100px;
+}
+.menu-element img {
 	width: 64px;
 	height: 64px;
 }

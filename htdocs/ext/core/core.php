@@ -7,10 +7,11 @@ $router->respond('/', function ($req,$res,$service,$app) {
 
 
 $router->onHttpError(function ($code, $router) {
+	$app = $router->app();
 	switch ($code) {
 		case '404':
 			$router->response()->body(
-				$router->app()->twig->render('core/twig/404.twig')
+				$app->twig->render('core/twig/404.twig',$app->twigvars)
 				);
 			break;
 	}

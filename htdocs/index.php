@@ -29,7 +29,9 @@ $router->respond(function ($req,$res,$service,$app) {
 	$app->twig = new Twig_Environment($twig_loader);
 
 	// variables to be injected into twig templates
-	$app->twigvars = array();
+	$app->twigvars = array(
+		"requestUri" => $_SERVER['REQUEST_URI']
+		);
 
 	$app->conf = require __DIR__ . '/loadconfiguration.php';
 });
