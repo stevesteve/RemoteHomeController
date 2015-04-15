@@ -2,11 +2,15 @@
 
 
 // autoload composer files (see https://getcomposer.org/)
-require_once __DIR__ . '/vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 
 // loading settings from config.json
-$conf = require __DIR__ . '/loadconfiguration.php';
+$conf = require 'includes/loadconfiguration.php';
+
+
+// loading the permission system
+require 'includes/Guardian.php';
 
 
 if ($conf->debug) {
@@ -24,8 +28,15 @@ $router = new \Klein\Klein();
 // setup, executed on every request
 $router->respond(function ($req,$res,$service,$app) {
 
+	$app->register('db', function () {
+		$db = require 'includes/database.php';
+	});
+
+	// initiating the permission system
+	$app->guardian = new Guardian($app);
+
 	// initiating the templating engine
-	$twig_loader = new Twig_Loader_Filesystem(__DIR__ . '/ext');
+	$twig_loader = new Twig_Loader_Filesystem('ext');
 	$app->twig = new Twig_Environment($twig_loader);
 
 	// variables to be injected into twig templates
@@ -33,12 +44,14 @@ $router->respond(function ($req,$res,$service,$app) {
 		"requestUri" => $_SERVER['REQUEST_URI']
 		);
 
-	$app->conf = require __DIR__ . '/loadconfiguration.php';
+	$app->guardian->requireLogin();
+
+	$app->conf = require 'includes/loadconfiguration.php';
 });
 
 
 // loading extensions from ext/name/name.php
-$extensions = require 'loadextensions.php';
+$extensions = require 'includes/loadextensions.php';
 
 
 $router->dispatch();

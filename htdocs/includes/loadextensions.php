@@ -4,17 +4,17 @@
 
 $extensions = array();
 
-$extIterator = opendir(__DIR__ . '/ext');
+$extIterator = opendir('ext');
 while (false !== ($ext = readdir($extIterator))) {
-	if (filetype(__DIR__ . '/ext/' . $ext) !== 'dir'
+	if (filetype('ext/' . $ext) !== 'dir'
 		||$ext === '.'||$ext === '..') {
 		// skip entry if it's not a folder
 		continue;
 	}
-	if (!file_exists(__DIR__ . '/ext/' . $ext . '/' . $ext . '.php')) {
+	if (!file_exists('ext/' . $ext . '/' . $ext . '.php')) {
 		trigger_error('ext/' . $ext . ' has no ' . $ext . '.php');
 	}
-	include __DIR__ . '/ext/' . $ext . '/' . $ext . '.php';
+	include 'ext/' . $ext . '/' . $ext . '.php';
 	array_push($extensions,$ext);
 }
 
