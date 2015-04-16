@@ -1,6 +1,12 @@
 {
-	"debug": true,
 	"core":{
-		"homepage":"favorites"
+		"debug": true,
+		"homepage":"favorites",
+		"permissions":[
+			"user_create",
+			"user_read",
+			"user_update",
+			"user_delete"
+		]
 	}
 }

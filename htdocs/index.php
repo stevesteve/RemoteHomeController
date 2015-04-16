@@ -5,15 +5,15 @@
 require_once 'vendor/autoload.php';
 
 
+// start session
+session_start();
+
+
 // loading settings from config.json
 $conf = require 'includes/loadconfiguration.php';
 
 
-// loading the permission system
-require 'includes/Guardian.php';
-
-
-if ($conf->debug) {
+if ($conf->core->debug) {
 	// pretty error handling
 	$whoops = new \Whoops\Run;
 	$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -28,25 +28,44 @@ $router = new \Klein\Klein();
 // setup, executed on every request
 $router->respond(function ($req,$res,$service,$app) {
 
-	$app->register('db', function () {
+	// loading and initiating the database
+	$app->register('db', function () use($app) {
 		$db = require 'includes/database.php';
+		return $db;
 	});
 
 	// initiating the permission system
-	$app->guardian = new Guardian($app);
+	$app->register('guardian', function () use($app) {
+		require 'includes/Guardian.php';
+		return new Guardian($app);
+	});
 
 	// initiating the templating engine
-	$twig_loader = new Twig_Loader_Filesystem('ext');
-	$app->twig = new Twig_Environment($twig_loader);
+	$app->register('twig', function () use($app) {
+		$twig_loader = new Twig_Loader_Filesystem('ext');
+		return new Twig_Environment($twig_loader);
+	});
+
+	$app->conf = require 'includes/loadconfiguration.php';
 
 	// variables to be injected into twig templates
 	$app->twigvars = array(
-		"requestUri" => $_SERVER['REQUEST_URI']
+		"requestUri" => $_SERVER['REQUEST_URI'],
+		"errors" => array()
 		);
 
-	$app->guardian->requireLogin();
+});
 
-	$app->conf = require 'includes/loadconfiguration.php';
+$router->respond('/login', function ($req,$res,$service,$app) {
+	if ($app->guardian->login($req->username,$req->password)) {
+		$res->redirect($app->conf->core->homepage);
+	} else {
+		$app->twigvars['errors'][] = 'login_failed';
+	}
+});
+
+$router->respond(function ($req,$res,$service,$app) {
+	$app->guardian->requireLogin();
 });
 
 
