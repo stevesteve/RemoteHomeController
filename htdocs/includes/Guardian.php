@@ -27,7 +27,9 @@ class Guardian
 		if (isset($_SESSION['user']['id'])) {
 			$this->user = $_SESSION['user'];
 		} else {
-			echo $this->app->twig->render('core/twig/login.twig');
+			echo $this->app->twig->render(
+				'core/twig/login.twig',
+				$this->app->twigvars);
 			exit;
 		}
 	}
@@ -52,8 +54,17 @@ class Guardian
 		return false;
 	}
 
+	public function logout()
+	{
+		$_SESSION = array();
+		session_destroy();
+		session_start();
+	}
+
 	public function requirePerm($name)
 	{
-		
+		if ($this->user['is_admin']) {
+			return true;
+		}
 	}
 }

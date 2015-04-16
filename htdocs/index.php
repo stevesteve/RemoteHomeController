@@ -53,8 +53,8 @@ $router->respond(function ($req,$res,$service,$app) {
 		"requestUri" => $_SERVER['REQUEST_URI'],
 		"errors" => array()
 		);
-
 });
+
 
 $router->respond('/login', function ($req,$res,$service,$app) {
 	if ($app->guardian->login($req->username,$req->password)) {
@@ -63,7 +63,6 @@ $router->respond('/login', function ($req,$res,$service,$app) {
 		$app->twigvars['errors'][] = 'login_failed';
 	}
 });
-
 $router->respond(function ($req,$res,$service,$app) {
 	$app->guardian->requireLogin();
 });
