@@ -2,14 +2,12 @@
 
 
 $router->respond('/', function ($req,$res,$service,$app) {
-	$res->redirect($app->conf->core->homepage);
+	return $res->redirect($app->conf->core->homepage);
 });
 
 $router->respond('/logout', function ($req,$res,$service,$app) {
 	$app->guardian->logout();
-	return $app->twig->render(
-		'core/twig/logout.twig',
-		$app->twigvars);
+	return $res->redirect('/');
 });
 
 
