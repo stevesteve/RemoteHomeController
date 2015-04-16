@@ -17,7 +17,7 @@ $router->onHttpError(function ($code, $router) {
 		case '404':
 			$router->response()->body(
 				$app->twig->render(
-					'core/twig/404.twig',
+					'core/errors/404.twig',
 					$app->twigvars));
 			break;
 	}

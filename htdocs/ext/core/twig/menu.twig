@@ -7,21 +7,27 @@
 	</div>
 	<!-- end ext/favorites -->
 	<!-- added by ext/relaisctrl -->
+	{% if guardian.hasPerm('relais_read') %}
 	<div class="menu-element {% if requestUri == '/homecontrol' %}active{% endif %}">
 		<a href="/homecontrol">
 			<img src="/ext/relaisctrl/media/img/lightning-icon.png">
 		</a>
 	</div>
+	{% endif %}
 	<!-- end ext/relaisctrl -->
+	{% if guardian.hasPerm('user_read') %}
 	<div class="menu-element {% if requestUri == '/users' %}active{% endif %}">
 		<a href="/users">
 			<img src="/ext/core/media/img/user-icon.png">
 		</a>
 	</div>
+	{% endif %}
+	{% if guardian.isLoggedIn() %}
 	<div class="menu-element {% if requestUri == '/logout' %}active{% endif %}">
 		<a href="/logout">
 			<img src="/ext/core/media/img/logout-icon.png">
 		</a>
 	</div>
+	{% endif %}
 </div>
 			

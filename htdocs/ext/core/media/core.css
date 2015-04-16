@@ -2,15 +2,23 @@
 div {
 }
 
-body {
+html, body, #master {
+	height: 100%;
+}
+
+#master {
+	display: flex;
+	flex-direction: column;
+	max-width: 1324px;
+	margin: 0 auto;
 }
 
 /* --- HEADER ---*/
 
 #header {
 	background-color: white;
-	max-width: 1324px;
 	margin: 0 auto;
+	width: 100%;
 }
 
 /* ---- LOGO ----*/
@@ -18,15 +26,15 @@ body {
 	text-align: center;
 	height: 96px;
 	padding: 10px;
+	width: 100%;
+	border-bottom: 1px solid gray;
 }
 
 /* ---- POWER BUTTONS ---- */
 #powerbuttons {
-	max-width: 1324px; /* 2*arrowbox + 8*powerbutton */
-	margin: 0px auto;
+	margin: 0 auto;
 	height: 148px;
-	border-top: 1px solid grey;
-	border-bottom: 1px solid grey;
+	border-bottom: 1px solid gray;
 	overflow: hidden;
 }
 
@@ -52,25 +60,22 @@ body {
 /* --- BODY --- */
 
 #main {
-	position: absolute;
-	max-width: 1324px; /* 2*arrowbox + 8*powerbutton */
-	top: 244px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: 0 auto;
+	margin: 0;
+	height: 100%;
+	position: relative;
+	flex: 1;
+	display: flex;
+	flex-direction: row;
 }
 
 /* ---- MENU ---- */
 
 #menu {
 	width: 100px;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
+	flex: 0 0 auto;
 	background-color: black;
 }
-.menu-element.active {
+.menu-element.active img {
 	background-color: white;
 }
 .menu-element {
@@ -79,23 +84,36 @@ body {
 }
 .menu-element a {
 	display: block;
-	padding: 20px 18px;
+	padding: 10px 13px;
 	width: 100px;
 	height: 100px;
 }
 .menu-element img {
-	width: 64px;
-	height: 64px;
+	border-radius: 4px;
+	width: 74px;
+	height: 74px;
+	padding: 5px;
+}
+
+/* ---- ERRORS ---- */
+#errors {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	border-top: none;
 }
 
 /* ---- CONTENT ---- */
 
 #content {
+	flex: 1;
 	position: relative;
-	background-color: white;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 100px;
-	right: 0;
+	margin: 0;
+	padding: 20px;
 }
+
+#content > #errors {
+	margin: 10px;
+	margin-top: -20px;
+}
+
+/* ---- LOGIN ---- */
