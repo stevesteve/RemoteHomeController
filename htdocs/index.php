@@ -51,7 +51,8 @@ $router->respond(function ($req,$res,$service,$app) {
 	// variables to be injected into twig templates
 	$app->twigvars = array(
 		"requestUri" => $_SERVER['REQUEST_URI'],
-		"errors" => array()
+		"errors" => array(),
+		"success" => array()
 		);
 });
 

@@ -35,7 +35,16 @@
 					{% endfor %}
 				</div>
 			{% endif %}
-				{% block content %}{% endblock %}
+			{% if success|length > 0 %}
+				<div id="success" class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">&times;</button>
+					{% for error in success %}
+						{{ error }}<br>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% block content %}{% endblock %}
 			</div>
 		</div>
 	</div>

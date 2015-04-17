@@ -95,11 +95,13 @@ html, body, #master {
 	padding: 5px;
 }
 
-/* ---- ERRORS ---- */
-#errors {
+/* ---- ERRORS AND SUCCESS ---- */
+#errors, #success {
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 	border-top: none;
+	margin: 10px;
+	margin-top: -20px;
 }
 
 /* ---- CONTENT ---- */
@@ -109,11 +111,6 @@ html, body, #master {
 	position: relative;
 	margin: 0;
 	padding: 20px;
-}
-
-#content > #errors {
-	margin: 10px;
-	margin-top: -20px;
 }
 
 /* ---- LOGIN ---- */
