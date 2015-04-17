@@ -1,0 +1,58 @@
+{% extends 'core/twig/base.twig' %}
+{% block content %}
+
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Lastname</th>
+				<th>Firstname</th>
+				<th>Admin</th>
+				{% if guardian.hasPerm('user_edit') %}
+				<th class="td-fit"></th>
+				{% endif %}
+				{% if guardian.hasPerm('user_delete') or guardian.hasPerm('user_create') %}
+					<th class="td-fit">
+						{% if guardian.hasPerm('user_create') %}
+							<a href="/user">
+							<img src="/ext/usermanager/media/img/create.png">
+							</a>
+						{% endif %}
+					</th>
+				{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in userlist %}
+				<tr>
+					<td>{{ user.id }}</td>
+					<td>{{ user.username }}</td>
+					<td>{{ user.lastname }}</td>
+					<td>{{ user.firstname }}</td>
+					<td>
+						{% if user.is_admin %}
+							Yes
+						{% else %}
+							No
+						{% endif %}
+					</td>
+					{% if guardian.hasPerm('user_edit') %}
+					<td class="td-fit">
+						<a href="/user/{{ user.id }}">
+						<img src="/ext/usermanager/media/img/edit.png">
+						</a>
+					</td>
+					{% endif %}
+					{% if guardian.hasPerm('user_delete') %}
+					<td class="td-fit">
+						<a href="/user/{{ user.id }}/delete">
+						<img src="/ext/usermanager/media/img/delete.png">
+						</a>
+					</td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

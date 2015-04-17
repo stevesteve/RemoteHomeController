@@ -1,7 +1,9 @@
 {
 	"core":{
 		"debug": true,
-		"homepage":"favorites",
+		"homepage":"favorites"
+	},
+	"usermanager": {
 		"permissions":[
 			"user_create",
 			"user_read",

@@ -43,7 +43,9 @@ $router->respond(function ($req,$res,$service,$app) {
 	// initiating the templating engine
 	$app->register('twig', function () use($app) {
 		$twig_loader = new Twig_Loader_Filesystem('ext');
-		return new Twig_Environment($twig_loader);
+		$twig = new Twig_Environment($twig_loader);
+		$twig->addGlobal('guardian',$app->guardian);
+		return $twig;
 	});
 
 	$app->conf = require 'includes/loadconfiguration.php';

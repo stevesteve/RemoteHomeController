@@ -1,0 +1,106 @@
+{% extends 'core/twig/base.twig' %}
+{% block content %}
+	<form action="/user/submit" method="POST" role="form">
+		{% if user.id %}
+			<legend>Edit user</legend>
+			<input type="hidden" name="userid" value="{{ user.id }}">
+			<div class="form-group">
+				<label for="">ID:</label> {{ user.id }}
+			</div>
+		{% else %}
+		    <legend>Create user</legend>
+		{% endif %}
+
+		
+		<div class="form-group{% if formErrors.username %} has-error{% endif %}">
+			<label for="">Username</label>
+			<input type="text" class="form-control"
+				id="username" name="username"
+				value="{{ user.username }}" autofocus
+				placeholder="Username" tabindex="1">
+			{% if formErrors.username %}
+				<span class="help-block">
+					{% for error in formErrors.username %}
+						{% if error != '' %}
+					    	{{ error }}<br>
+						{% endif %}
+					{% endfor %}
+				</span>
+			{% endif %}
+		</div>
+		<div class="form-group{% if formErrors.lastname %} has-error{% endif %}">
+			<label for="">Lastname</label>
+			<input type="text" class="form-control"
+				id="lastname" name="lastname"
+				value="{{ user.lastname }}"
+				placeholder="Lastname" tabindex="2">
+			{% if formErrors.lastname %}
+				<span class="help-block">
+					{% for error in formErrors.lastname %}
+						{% if error != '' %}
+					    	{{ error }}<br>
+						{% endif %}
+					{% endfor %}
+				</span>
+			{% endif %}
+		</div>
+		<div class="form-group{% if formErrors.firstname %} has-error{% endif %}">
+			<label for="">Firstname</label>
+			<input type="text" class="form-control"
+				id="firstname" name="firstname"
+				value="{{ user.firstname }}"
+				placeholder="Firstname" tabindex="3">
+			{% if formErrors.firstname %}
+				<span class="help-block">
+					{% for error in formErrors.firstname %}
+						{% if error != '' %}
+					    	{{ error }}<br>
+						{% endif %}
+					{% endfor %}
+				</span>
+			{% endif %}
+		</div>
+		<div class="form-group{% if formErrors.password %} has-error{% endif %}">
+			<label for="">Password</label>
+			{% if user.id %}
+				<div class="input-group">
+					<span class="input-group-addon">
+						<input type="checkbox" name="setPassword"
+							{% if user.setPassword and formErrors.password %}
+								checked
+							{% endif %}>
+					</span>
+					<input type="password" name="password"
+						id="password" placeholder="Password"
+						class="form-control" tabindex="4">
+				</div>
+			{% else %}
+				<input type="password" class="form-control"
+					id="password" name="password"
+					placeholder="Password" tabindex="4">
+			{% endif %}
+			{% if formErrors.password %}
+				<span class="help-block">
+					{% for error in formErrors.password %}
+						{% if error != '' %}
+					    	{{ error }}<br>
+						{% endif %}
+					{% endfor %}
+				</span>
+			{% endif %}
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="is_admin"
+					{% if user.is_admin %}checked{% endif %}>
+				Admin
+			</label>
+		</div>
+		
+		{% if user.id %}
+		{% endif %}
+	
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+{% endblock %}
+
