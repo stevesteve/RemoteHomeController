@@ -20,5 +20,11 @@ $router->onHttpError(function ($code, $router) {
 					'core/errors/404.twig',
 					$app->twigvars));
 			break;
+		case '403':
+			$router->response()->body(
+				$app->twig->render(
+					'core/errors/403.twig',
+					$app->twigvars));
+			break;
 	}
 });
