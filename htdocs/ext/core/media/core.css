@@ -33,7 +33,6 @@ html, body, #master {
 /* ---- POWER BUTTONS ---- */
 #powerbuttons {
 	margin: 0 auto;
-	height: 148px;
 	border-bottom: 1px solid gray;
 	overflow: hidden;
 }
@@ -41,20 +40,28 @@ html, body, #master {
 .arrowbox {
 	float: left;
 	cursor: pointer;
-	height: 128px;
-	width: 50px;
+	height: 64px;
+	width: 25px;
 	margin: 10px;
 }
 .arrowbox.right {
 	float: right;
 }
+.arrowbox img {
+	height: 64px;
+	width: 25px;
+}
 
 .powerbutton {
 	float: left;
 	cursor: pointer;
-	height: 128px;
-	width: 128px;
+	height: 64px;
+	width: 64px;
 	margin: 10px;
+}
+.powerbutton img {
+	height: 64px;
+	width: 64px;
 }
 
 /* --- BODY --- */
