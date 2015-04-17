@@ -10,5 +10,12 @@
 			"user_update",
 			"user_delete"
 		]
+	},
+	"relaisctrl": {
+		"permissions": [
+			"relais_read",
+			"relais_set",
+			"relais_label"
+		]
 	}
 }

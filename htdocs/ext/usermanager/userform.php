@@ -10,7 +10,20 @@ $router->respond('/user/[i:urlid]', function ($req,$res,$service,$app) {
 		WHERE user.id = :userid');
 	$stmt->bindValue(':userid',$req->urlid);
 	$stmt->execute();
-	if ($user = $stmt->fetch()) {
+	if ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+		$stmt = $app->db->prepare(
+			'SELECT * FROM permission_user
+			INNER JOIN permission ON permission.id = permission_user.permission
+			WHERE permission_user.user = :userid');
+		$stmt->bindValue(':userid', $user['id']);
+		$stmt->execute();
+		$permissions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$user['perms'] = array();
+		foreach ($permissions as $perm) {
+			$user['perms'][$perm] = 'ON';
+		}
+
 		$app->twigvars['user'] = $user;
 	} else {
 		$app->twigvars['errors'][] = "User not found";
@@ -33,7 +46,11 @@ $router->respond('/user/?', function ($req,$res,$service,$app) {
 
 $router->respond('/user/submit', function ($req,$res,$service,$app) {
 	
-	$app->guardian->requirePerm('user_update');
+	if ($req->userid) {
+		$app->guardian->requirePerm('user_update');
+	} else {
+		$app->guardian->requirePerm('user_create');
+	}
 
 	$user = array(
 		'id'=>$req->userid,
@@ -42,6 +59,7 @@ $router->respond('/user/submit', function ($req,$res,$service,$app) {
 		'firstname'=>$req->firstname,
 		'lastname'=>$req->lastname,
 		'is_admin'=>$req->is_admin?1:0,
+		'perms'=>$req->perms,
 		);
 
 	$v = new Valitron\Validator($user);
@@ -94,16 +112,45 @@ $router->respond('/user/submit', function ($req,$res,$service,$app) {
 		$stmt->bindValue(':is_admin',$user['is_admin']);
 		$success = $stmt->execute();
 
-		
+
 
 		if ($success) {
 			if (!$user['id']) {
 				$user['id'] = $app->db->lastInsertId();
 			}
 			$app->twigvars['success'][] = "User saved";
+
+			// make sure all permissions are in the database
+			$app->guardian->insertPermissions();
+			$stmt = $app->db->prepare('SELECT * FROM permission');
+			$stmt->execute();
+			$allPermissions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$permsByName = array();
+			foreach ($allPermissions as $perm) {
+				$permsByName[$perm['name']] = $perm['id'];
+			}
+			$rows = array();
+			$req->perms = $req->perms?$req->perms:array();
+			foreach ($req->perms as $perm => $state) {
+				if ($permsByName[$perm]) {
+					$rows[] = '('.$user['id'].','.$permsByName[$perm].')';
+				}
+			}
+			$stmt = $app->db->prepare(
+				'DELETE FROM permission_user WHERE user = :userid');
+			$stmt->bindValue(':userid',$user['id']);
+			$stmt->execute();
+			$stmt = $app->db->prepare(
+				'INSERT INTO permission_user (user,permission)
+				VALUES '.join(',',$rows));
+			$stmt->execute();
+
 		} else {
 			$app->twigvars['errors'][] = "User exists";
 		}
+
+
+
 	} else {
 		$app->twigvars['formErrors'] = $v->errors();
 	}

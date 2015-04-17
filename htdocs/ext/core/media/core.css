@@ -1,16 +1,16 @@
 
-div {
-}
-
-html, body, #master {
-	height: 100%;
+body {
+	display: flex;
+	padding: 0;
+	align-items: center;
+	justify-content: center;
 }
 
 #master {
 	display: flex;
 	flex-direction: column;
-	max-width: 1324px;
-	margin: 0 auto;
+	max-width: 1200px;
+	margin: 0;
 }
 
 /* --- HEADER ---*/
@@ -35,6 +35,7 @@ html, body, #master {
 	margin: 0 auto;
 	border-bottom: 1px solid gray;
 	overflow: hidden;
+	height: 84px;
 }
 
 .arrowbox {
@@ -68,11 +69,13 @@ html, body, #master {
 
 #main {
 	margin: 0;
-	height: 100%;
-	position: relative;
+	/*height: 100%;*/
+	/*position: relative;*/
 	flex: 1;
 	display: flex;
 	flex-direction: row;
+	border-bottom: 1px solid gray;
+	margin-bottom: 50px;
 }
 
 /* ---- MENU ---- */
@@ -87,7 +90,6 @@ html, body, #master {
 }
 .menu-element {
 	cursor: pointer;
-	margin-right: -2px; /* removes a black border on some mobile devices */
 }
 .menu-element a {
 	display: block;

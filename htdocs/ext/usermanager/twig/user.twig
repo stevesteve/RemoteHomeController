@@ -1,5 +1,7 @@
 {% extends 'core/twig/base.twig' %}
 {% block content %}
+	<link rel="stylesheet" type="text/css"
+		href="/ext/usermanager/media/user.css">
 	<form action="/user/submit" method="POST" role="form">
 		{% if user.id %}
 			<legend>Edit user</legend>
@@ -101,6 +103,26 @@
 		{% endif %}
 	
 		<button type="submit" class="btn btn-primary">Submit</button>
+		<h2>Permissions</h2>
+		<div id="permissions">
+			{% for ext, perms in guardian.getAllPermissions() %}
+			<div class="permbox">
+				<h3>{{ ext }}</h3>
+				{% for perm in perms %}
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"
+								name="perms[{{ perm }}]"
+								{% if user.perms[perm] %}
+									checked
+								{% endif %}>
+							{{ perm }}
+						</label>
+					</div>
+				{% endfor %}
+			</div>
+			{% endfor %}
+		</div>
 	</form>
 {% endblock %}
 

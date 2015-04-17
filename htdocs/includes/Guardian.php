@@ -14,12 +14,14 @@ class Guardian
 		// collect all permissions into $this->allPermissions
 		foreach ($app->conf as $ext => $extconf) {
 			if (property_exists($extconf, 'permissions')) {
-				$this->allPermissions = array_merge(
-					$this->allPermissions, 
-					$extconf->permissions
-				);
+				$this->allPermissions[$ext] = $extconf->permissions;
 			}
 		}
+	}
+
+	public function isAdmin()
+	{
+		return $this->user['is_admin'];
 	}
 
 	public function isLoggedIn()
@@ -81,5 +83,29 @@ class Guardian
 				$this->app->twigvars);
 			exit;
 		}
+	}
+
+	public function getAllPermissions()
+	{
+		return $this->allPermissions;
+	}
+
+	public function insertPermissions()
+	{
+		$values = array();
+		foreach ($this->allPermissions as $ext => $perms) {
+			foreach ($perms as $perm) {
+				$values[] = '(:'.$perm.')';
+			}
+		}
+		$stmt = $this->app->db->prepare(
+			'INSERT IGNORE permission(name) VALUES '.join(',',$values));
+
+		foreach ($this->allPermissions as $ext => $perms) {
+			foreach ($perms as $perm) {
+				$stmt->bindValue(':'.$perm,$perm);
+			}
+		}
+		$stmt->execute();
 	}
 }
