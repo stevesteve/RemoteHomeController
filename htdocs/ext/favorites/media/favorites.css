@@ -1,0 +1,147 @@
+/* ---- EDIT BUTTON ---- */
+#btngroup-edit {
+	position: absolute;
+	right: 0;
+	z-index: 10;
+}
+#btngroup-edit button {
+	display: none;
+	float: right;
+	margin: 0 4px;
+}
+#btngroup-edit #btn-edit {
+	display: block;
+}
+
+/* ---- CATEGORIES ----*/
+.category {
+	padding: 10px;
+	margin: 0;
+	position: relative;
+}
+.category h2 {
+	position: absolute;
+	line-height: 40px;
+	font-size: 32px;
+	margin: 0 10px;
+	padding: 0;
+	top: 0;
+	left: 0;
+}
+.category h2 input {
+	display: none;
+}
+.category .list-favorites {
+	padding-top: 40px;
+	min-height: 10px;
+}
+
+/* ---- FAVORITES ---- */
+.category .favorite {
+	height: 148px;
+	width: 148px;
+	text-align: center;
+	padding: 0 10px;
+	margin: 2px;
+	background: #ccc;
+	border-radius: 8px;
+	display: inline-block;
+	position: relative;
+}
+.category .favorite .image{
+	height: 128px;
+	width: 128px;
+	white-space: nowrap;
+	margin: 0;
+	padding: 0;
+}
+.category .favorite .image .helper{
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	width: 0;
+	border: none;
+}
+.category .favorite .image img{
+	max-width: 128px;
+	max-height: 128px;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.category .favorite .name{
+	line-height: 10px;
+	color: white;
+}
+.category .favorite a{
+	text-decoration: none;
+}
+.category .favorite a:hover{
+	text-decoration: none;
+}
+.category .favorite .editcontainer {
+	display: none;
+	width: 128px;
+}
+.category .btn-delete-category,
+.category .favorite .btn-edit-fav,
+.category .favorite .btn-delete-fav {
+	display: none;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 10;
+	cursor: pointer;
+}
+.category .favorite .btn-delete-fav {
+	top: 42px;
+}
+
+/* ---- EDIT MODE ----*/
+.editable #btngroup-edit #btn-edit {
+	display: none;
+}
+.editable #btngroup-edit button {
+	display: block;
+}
+
+/* ---- EDITABLE FAVORITES ---- */
+.editable .category h2 input {
+	display: initial;
+}
+.editable .category h2 span {
+	display: none;
+}
+.editable .category .btn-delete-category,
+.editable .favorite .btn-edit-fav,
+.editable .favorite .btn-delete-fav {
+	display: block;
+	width: 32px;
+	height: 32px;
+}
+.category .btn-delete-category {
+	top: 6px;
+	right: -36px;
+}
+.favorite.editable {
+	width: 256px;
+}
+.favorite.editable > * {
+	display: none;
+}
+.favorite.editable .editcontainer {
+	display: block;
+	text-align: left;
+}
+.favorite.editable .editcontainer label {
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+.favorite.editable .editcontainer input[type=text] {
+	display: block;
+	width: 200px;
+}

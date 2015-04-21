@@ -1,4 +1,70 @@
 {% extends 'core/twig/base.twig' %}
 {% block content %}
-	favorites
+	<link rel="stylesheet" type="text/css" href="/ext/favorites/media/favorites.css">
+	<form action="" method="POST" id="favoriteform">
+	<div id="btngroup-edit">
+		<button class="btn btn-default" id="btn-edit">Edit</button>
+		<button class="btn btn-default" id="btn-save">Save</button>
+		<button class="btn btn-default" id="btn-addCategory">
+			Add Category
+		</button>
+		<button class="btn btn-default" id="btn-addFav">
+			Add Favorite
+		</button>
+	</div>
+	{% for category in categories %}
+	    <div class="category" data-id="{{ category.id }}">
+	    	<h2>
+				<span class="categorylabel">{{ category.label }}</span>
+				<input name="categories[{{ category.id}}]" type="text" value="{{ category.label }}">
+				<img src="/ext/favorites/media/img/delete-icon.png"
+					class="btn-delete-category">
+	    	</h2>
+	    	<div class="list-favorites">
+	    	{% for favorite in category.favorites %}
+	    			<div class="favorite">
+	    				
+	    				<a href="{{ favorite.url }}">
+	    					<div class="image">
+	    				    	<span class="helper"></span>
+	    						<img src="{{ favorite.image }}">
+	    					</div>
+	    					<span class="name">
+	    						{{ favorite.label }}
+	    					</span>
+	    				</a>
+	    				<img src="/ext/favorites/media/img/edit-icon.png"
+	    					class="btn-edit-fav">
+	    				<img src="/ext/favorites/media/img/delete-icon.png"
+	    					class="btn-delete-fav">
+	    				<div class="editcontainer">
+		    				<input type="hidden"
+		    					name="favorites[id][]"
+		    					class="input-fav-id"
+		    					value="{{ favorite.id }}">
+	    					<input type="hidden" class="input-category"
+	    						name="favorites[category][]"
+	    						value="{{ category.id }}">
+	    					<label>URL</label>
+	    					<input type="text" class="input-url"
+	    						name="favorites[url][]"
+	    						value="{{ favorite.url }}">
+	    					<label>Image</label>
+	    					<input type="text" class="input-image"
+	    						name="favorites[image][]"
+	    						value="{{ favorite.image }}">
+	    					<label>Label</label>
+	    					<input type="text" class="input-label"
+	    						name="favorites[label][]"
+	    						value="{{ favorite.label }}">
+	    				</div>
+	    			</div>
+    		{% endfor %}
+    		</div>
+	    </div>
+	{% endfor %}
+	</form>
+	<script type="text/javascript" src="/bower/Sortable/Sortable.min.js"></script>
+	<script type="text/javascript" src="/ext/favorites/media/favorites.js"></script>
+
 {% endblock %}

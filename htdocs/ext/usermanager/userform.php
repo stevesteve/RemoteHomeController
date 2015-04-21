@@ -21,7 +21,7 @@ $router->respond('/user/[i:urlid]', function ($req,$res,$service,$app) {
 		$permissions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$user['perms'] = array();
 		foreach ($permissions as $perm) {
-			$user['perms'][$perm] = 'ON';
+			$user['perms'][$perm['name']] = 'ON';
 		}
 
 		$app->twigvars['user'] = $user;
