@@ -12,6 +12,7 @@
 		]
 	},
 	"relaisctrl": {
+		"port": "/dev/ttyUSB0",
 		"permissions": [
 			"relais_read",
 			"relais_set",
