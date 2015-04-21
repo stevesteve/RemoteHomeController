@@ -5,6 +5,7 @@ class Guardian
 
 	private $user;
 	private $allPermissions = array();
+	private $permissions = array();
 	private $app;
 	
 	function __construct($app)
@@ -17,6 +18,8 @@ class Guardian
 				$this->allPermissions[$ext] = $extconf->permissions;
 			}
 		}
+
+		$this->loadPermissions();
 	}
 
 	public function isAdmin()
@@ -54,7 +57,10 @@ class Guardian
 		$user = $stmt->fetch();
 		if ($user&&password_verify($password,$user['password'])) {
 			$_SESSION['user'] = $user;
-			$this->user = $user;
+				$this->user = $user;
+
+			$this->loadPermissions();
+			
 			return true;
 		}
 		return false;
@@ -67,11 +73,35 @@ class Guardian
 		session_start();
 	}
 
+	public function loadPermissions()
+	{
+		$this->permissions = array();
+		if (!$this->isLoggedIn()) {
+			return;
+		}
+		$stmt = $this->app->db->prepare(
+			'SELECT permission.id, permission.name FROM permission
+			INNER JOIN permission_user
+				ON permission_user.permission = permission.id
+			WHERE permission_user.user = :userid');
+		$stmt->bindValue(':userid', $_SESSION['user']['id']);
+		$stmt->execute();
+		$permissionObjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($permissionObjects as $permission) {
+			$this->permissions[] = $permission['name'];
+		}
+	}
+
 	public function hasPerm($permission)
 	{
-		if ($this->user['is_admin']) {
+		if (!$this->isLoggedIn()) {
+			return false;
+		}
+		if ($this->isAdmin()) {
 			return true;
 		}
+
+		return array_search($permission, $this->permissions)!==false;
 	}
 
 	public function requirePerm($permission)

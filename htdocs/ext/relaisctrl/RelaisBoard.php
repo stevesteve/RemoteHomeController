@@ -50,7 +50,6 @@ class RelaisBoard
 
 	public function getSwitchStates()
 	{
-		$this->_open();
 		$currentAddress = 1;
 		$switchStates = array();
 		$response = $this->send(RelaisBoard::GET_PORT,$currentAddress);
