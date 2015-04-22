@@ -135,6 +135,20 @@ function initiatePowerbar() {
 		scrollBar(84*4, 1);
 	});
 
+	$('.blackoutswitch').on('click', function (event) {
+
+		deviceBusy = true;
+		$.ajax({
+			url: '/ajax/relaisctrl/blackout',
+			type: 'POST',
+			dataType: 'json',
+		})
+		.always(function() {
+			deviceBusy = false;
+			updateSwitchStates();
+		});
+	});
+
 	getButtonConfig();
 
 	tmp = scrollBar;

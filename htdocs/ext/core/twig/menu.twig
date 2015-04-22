@@ -22,6 +22,15 @@
 		</a>
 	</div>
 	{% endif %}
+	<!-- added by ext/relaisctrl -->
+	{% if guardian.hasPerm('relais_set') %}
+	<div class="menu-element">
+		<a href="#" class="blackoutswitch">
+			<img src="/ext/relaisctrl/media/img/pull-plug.png">
+		</a>
+	</div>
+	{% endif %}
+	<!-- end ext/relaisctrl -->
 	{% if guardian.isLoggedIn() %}
 	<div class="menu-element {% if requestUri == '/logout' %}active{% endif %}">
 		<a href="/logout">

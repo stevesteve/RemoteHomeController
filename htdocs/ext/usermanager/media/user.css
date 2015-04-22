@@ -10,6 +10,12 @@ h3 {
 	padding-bottom: 3px;
 	border-bottom: 1px solid #ddd;
 	margin: 4px;
+	cursor: pointer;
+}
+h3 input[type=checkbox] {
+	/*position: relative;*/
+	top:-2px;
+	/*left: 5px;*/
 }
 #permissions {
 	border: 1px solid grey;
@@ -17,7 +23,7 @@ h3 {
 	padding: 10px;
 }
 #permissions .permbox {
-	padding-bottom: 8px;
+	padding-bottom: 16px;
 }
 #permissions .checkbox {
 	padding: 1px;

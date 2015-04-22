@@ -21,6 +21,12 @@ class RelaisBoard
 		exec("/bin/stty -F $port 19200 sane raw cs8 hupcl cread clocal -echo -onlcr ");
 	}
 
+	public function blackout()
+	{
+		$response = $this->send(RelaisBoard::SET_PORT,0,0);
+		return $response && $response['code'] === 252;
+	}
+
 	public function toggleById($switchId)
 	{
 		$boardAddress = floor($switchId / 8)+1;
@@ -87,6 +93,7 @@ class RelaisBoard
 		try {
 			$response = unpack("Ccode/Caddr/Cdata/Cxor",$this->_read());
 		} catch(Exception $e) {
+			return false;
 		}
 
 		if ($address !== 0 && $response['code']===$cmd) {

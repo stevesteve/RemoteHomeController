@@ -18,6 +18,12 @@ $router->respond('GET','/ajax/relaisctrl/state', function ($req,$res,$service,$a
 	$switchStates = $rb->getSwitchStates();
 	return json_encode($switchStates);
 });
+$router->respond('/ajax/relaisctrl/blackout', function ($req,$res,$service,$app) {
+	$app->guardian->requirePerm('relais_set');
+	$rb = $app->relais_board;
+	$success = $rb->blackout();
+	return json_encode($success);
+});
 $router->respond('POST','/ajax/relaisctrl/toggle/[i:id]',
 	function ($req,$res,$service,$app) {
 
