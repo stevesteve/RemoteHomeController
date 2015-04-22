@@ -38,14 +38,14 @@ $router->respond('/favorites', function ($req,$res,$service,$app) {
 
 	$stmt = $app->db->prepare(
 		'SELECT
-			favorites.id,
-			favorites.url,
-			favorites.label as label,
-			favorites.image,
+			favorite.id,
+			favorite.url,
+			favorite.label as label,
+			favorite.image,
 			category.id as categoryid,
 			category.label as category
 		FROM category
-		LEFT JOIN favorites on favorites.category = category.id
+		LEFT JOIN favorite on favorite.category = category.id
 		WHERE category.user = :userid');
 
 	$stmt->bindValue(':userid',$_SESSION['user']['id']);
