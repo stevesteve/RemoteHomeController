@@ -40,7 +40,7 @@ class RelaisBoard
 		$newState = pow(2,$switchPos) ^ $oldState;
 
 		$response = $this->send(RelaisBoard::SET_PORT,$boardAddress,$newState);
-		return $response['code'] === 252;
+		return $response && $response['code'] === 252;
 	}
 
 	public function getBoardCount()
@@ -53,6 +53,9 @@ class RelaisBoard
 		$currentAddress = 1;
 		$switchStates = array();
 		$response = $this->send(RelaisBoard::GET_PORT,$currentAddress);
+		if (!$response) {
+			return false;
+		}
 		$responseCode = $response['code'];
 		do {
 			$currentAddress++;
@@ -77,19 +80,43 @@ class RelaisBoard
 		$xor = $cmd ^ $address ^ $data;
 
 		$message = pack("C*",$cmd,$address,$data,$xor);
-		$this->_open();
+		if (!$this->_open()) {
+			return false;
+		};
 		$this->_write($message);
-		$this->_write("\x02\x01\x00\x03");
-		$response = unpack("Ccode/Caddr/Cdata/Cxor",$this->_read());
+		try {
+			$response = unpack("Ccode/Caddr/Cdata/Cxor",$this->_read());
+		} catch(Exception $e) {
+		}
+
+		if ($address !== 0 && $response['code']===$cmd) {
+			$this->_setup();
+			if (!$this->_open()) {
+				return false;
+			};
+			$this->_write($message);
+			$response = unpack("Ccode/Caddr/Cdata/Cxor",$this->_read());
+		}
+
 		$this->_close();
 
 		return $response;
 	}
 
+	private function _setup()
+	{
+		return $this->send(RelaisBoard::SETUP,1,0);
+	}
+
 	private function _open()
 	{
-		$this->_fp = fopen($this->_port,"w+");
-		if(!$this->_fp) die("Can't open device");
+		try {
+			$this->_fp = fopen($this->_port,"w+");
+		} catch(Exception $e) {
+			return false;
+		}
+		if(!$this->_fp) return false;
+		return true;
 	}
 
 	private function _write($data)

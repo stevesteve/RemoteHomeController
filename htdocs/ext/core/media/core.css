@@ -31,22 +31,34 @@ body {
 }
 
 /* ---- POWER BUTTONS ---- */
-#powerbuttons {
-	margin: 0 auto;
+#powerbar {
 	border-bottom: 1px solid gray;
+	position: relative;
+}
+#scrollwrapper {
+	height: 104px;
 	overflow: hidden;
-	height: 84px;
+	margin: 0 50px;
+}
+#powerbuttons {
+	height: 104px;
+	position: relative;
+	display: inline-block;
 }
 
 .arrowbox {
-	float: left;
+	position: absolute;
+	top: 0;
 	cursor: pointer;
 	height: 64px;
 	width: 25px;
 	margin: 10px;
 }
-.arrowbox.right {
-	float: right;
+.arrowbox.arrowbox-left {
+	left: 0;
+}
+.arrowbox.arrowbox-right {
+	right: 0;
 }
 .arrowbox img {
 	height: 64px;
@@ -56,13 +68,17 @@ body {
 .powerbutton {
 	float: left;
 	cursor: pointer;
-	height: 64px;
+	height: 84px;
 	width: 64px;
 	margin: 10px;
+	text-align: center;
 }
 .powerbutton img {
 	height: 64px;
 	width: 64px;
+}
+.powerbutton span {
+	line-height: 20px;
 }
 
 /* --- BODY --- */

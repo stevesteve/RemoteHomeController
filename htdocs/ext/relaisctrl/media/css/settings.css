@@ -1,0 +1,14 @@
+table td {
+	position: relative;
+}
+table .powerbutton {
+	position: absolute;
+	height: 16px;
+	width: 16px;
+	top: 1px;
+}
+.handle .glyphicon {
+	/*position: absolute;*/
+	/*top: 10px;*/
+	/*left: 4px;*/
+}

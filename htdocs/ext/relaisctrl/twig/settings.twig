@@ -1,0 +1,57 @@
+{% extends 'core/twig/base.twig' %}
+{% block content %}
+	<link rel="stylesheet" type="text/css"
+		href="/ext/relaisctrl/media/css/settings.css">
+	<form action="" method="POST" accept-charset="utf-8">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>State</th>
+				<th>Board</th>
+				<th>Label</th>
+				<th>Enabled</th>
+			</tr>
+		</thead>
+		<tbody class="sortable">
+		{% for switch in switches %}
+			<tr>
+				<input type="hidden" name="order[]" value="{{ switch.id }}">
+				<td>
+					{% if switch.ison %}
+						<img class="powerbutton" data-id="{{ switch.id }}"
+							src="/ext/relaisctrl/media/img/powerbuttons/red.png">
+					{% else %}
+						<img class="powerbutton" data-id="{{ switch.id }}"
+							src="/ext/relaisctrl/media/img/powerbuttons/black.png">
+					{% endif %}
+				</td>
+				<td>{{ switch.board }}.{{ switch.physical_position }}</td>
+				<td>
+					{% if guardian.hasPerm('relais_label') %}
+						<input type="text" name="labels[{{ switch.id }}]"
+							class="switchlabel"
+							value="{{ switch.label }}" placeholder="Label">
+					{% else %}
+						{{ switch.label }}
+					{% endif %}
+				</td>
+				<td>
+					<input type="checkbox" name="enabled[{{ switch.id }}]"
+						{% if switch.enabled %}checked="checked"{% endif %}
+						{% if not guardian.hasPerm('relais_label') %}
+							disabled="disabled"
+						{% endif %}>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<input type="submit" name="Save" value="Save">
+	</form>
+	<script type="text/javascript" src="/bower/Sortable/Sortable.min.js"></script>
+	{% if guardian.hasPerm('relais_label') %}
+		<input type="hidden" name="js-check-reorder-permission" value="true">
+	{% endif %}
+	<script type="text/javascript" src="/ext/relaisctrl/media/js/settings.js"></script>
+{% endblock %}
+
