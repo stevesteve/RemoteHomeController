@@ -20,7 +20,7 @@ $router->respond('POST', '/favorites', function ($req,$res,$service,$app) {
 	}
 
 	$stmt = $app->db->prepare(
-		'INSERT INTO favorites(url,label,image,category)
+		'INSERT INTO favorite(url,label,image,category)
 		VALUES (:url,:label,:image,:category)');
 	foreach ($req->favorites['label'] as $index => $id) {
 		$category = $catDict[$req->favorites['category'][$index]];
