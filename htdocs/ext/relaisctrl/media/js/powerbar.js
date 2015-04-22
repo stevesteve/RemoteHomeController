@@ -20,7 +20,6 @@ function initiatePowerbar() {
 				getSwitchStates(callback,currentTry+1);
 			} else {
 				console.log("fail");
-				// #@todo handle error
 			}
 		})
 		.always(function() {
@@ -89,7 +88,6 @@ function initiatePowerbar() {
 	}
 
 	function shake (left,direction) {
-		console.log(direction);
 		$('#powerbuttons').animate({
 			left: left+10*direction,
 		}, 25, function() {
