@@ -34,9 +34,9 @@
 	    					</span>
 	    				</a>
 	    				<img src="/ext/favorites/media/img/edit-icon.png"
-	    					class="btn-edit-fav">
+	    					class="btn-edit-fav nodrag">
 	    				<img src="/ext/favorites/media/img/delete-icon.png"
-	    					class="btn-delete-fav">
+	    					class="btn-delete-fav nodrag">
 	    				<div class="editcontainer">
 		    				<input type="hidden"
 		    					name="favorites[id][]"
@@ -46,15 +46,15 @@
 	    						name="favorites[category][]"
 	    						value="{{ category.id }}">
 	    					<label>URL</label>
-	    					<input type="text" class="input-url"
+	    					<input type="text" class="input-url nodrag"
 	    						name="favorites[url][]"
 	    						value="{{ favorite.url }}">
 	    					<label>Image</label>
-	    					<input type="text" class="input-image"
+	    					<input type="text" class="input-image nodrag"
 	    						name="favorites[image][]"
 	    						value="{{ favorite.image }}">
 	    					<label>Label</label>
-	    					<input type="text" class="input-label"
+	    					<input type="text" class="input-label nodrag"
 	    						name="favorites[label][]"
 	    						value="{{ favorite.label }}">
 	    				</div>

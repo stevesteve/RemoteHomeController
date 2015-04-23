@@ -6,6 +6,7 @@ function enableEditMode () {
 	var lists = document.getElementsByClassName('list-favorites');
 	for (var i = lists.length - 1; i >= 0; i--) {
 		sortables.push(new Sortable.create(lists[i],{
+			filter: '.nodrag',
 			group: 'list-favorites',
 			onEnd: onEnd
 		}));

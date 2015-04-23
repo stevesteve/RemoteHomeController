@@ -46,7 +46,7 @@
 					{% endif %}
 					{% if guardian.hasPerm('user_delete') %}
 					<td class="td-fit">
-						<a href="/user/{{ user.id }}/delete">
+						<a href="/user/{{ user.id }}/delete" class="user-delete">
 						<img src="/ext/usermanager/media/img/delete.png">
 						</a>
 					</td>
@@ -55,4 +55,6 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	<script src="/ext/usermanager/media/userlist.js"
+		type="text/javascript"></script>
 {% endblock %}

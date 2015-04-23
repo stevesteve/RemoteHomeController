@@ -63,7 +63,7 @@ $router->respond('/login', function ($req,$res,$service,$app) {
 	if ($app->guardian->login($req->username,$req->password)) {
 		$res->redirect($app->conf->core->homepage);
 	} else {
-		$app->twigvars['errors'][] = 'login_failed';
+		$app->twigvars['errors'][] = 'Unknown username or password';
 	}
 });
 $router->respond(function ($req,$res,$service,$app) {
