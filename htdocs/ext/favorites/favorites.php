@@ -66,7 +66,7 @@ $router->respond('/favorites', function ($req,$res,$service,$app) {
 	$app->twigvars['categories'] = $categories;
 
 	return $app->twig->render(
-		'favorites/favorites.twig',
+		'favorites/twig/favorites.twig',
 		$app->twigvars
 	);
 });

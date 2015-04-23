@@ -10,7 +10,6 @@ $router->respond('/logout', function ($req,$res,$service,$app) {
 	return $res->redirect('/');
 });
 
-
 $router->onHttpError(function ($code, $router) {
 	$app = $router->app();
 	switch ($code) {
@@ -28,3 +27,5 @@ $router->onHttpError(function ($code, $router) {
 			break;
 	}
 });
+
+require_once __DIR__ . '/settings.php';
