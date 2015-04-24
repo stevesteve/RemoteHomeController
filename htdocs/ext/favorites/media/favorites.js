@@ -6,7 +6,7 @@ function enableEditMode () {
 	var lists = document.getElementsByClassName('list-favorites');
 	for (var i = lists.length - 1; i >= 0; i--) {
 		sortables.push(new Sortable.create(lists[i],{
-			filter: '.nodrag',
+			handle: '.btn-move-fav',
 			group: 'list-favorites',
 			onEnd: onEnd
 		}));
@@ -41,10 +41,13 @@ function addFavorite () {
 	a.append(name);
 	fav.append(a);
 
+	var draghandle = $('<div>')
+		.addClass('btn-move-fav');
 	var editicon = $('<img src="/ext/favorites/media/img/edit-icon.png">')
 		.addClass('btn-edit-fav');
 	var deleteicon = $('<img src="/ext/favorites/media/img/delete-icon.png">')
 		.addClass('btn-delete-fav');
+	fav.append(draghandle);
 	fav.append(editicon);
 	fav.append(deleteicon);
 

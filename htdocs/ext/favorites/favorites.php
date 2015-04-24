@@ -61,7 +61,9 @@ $router->respond('/favorites', function ($req,$res,$service,$app) {
 				'favorites'=>array()
 				);
 		}
-		$categories[$favorite['categoryid']]['favorites'][] = $favorite;
+		if (!is_null($favorite['id'])) {
+			$categories[$favorite['categoryid']]['favorites'][] = $favorite;
+		}
 	}
 	$app->twigvars['categories'] = $categories;
 

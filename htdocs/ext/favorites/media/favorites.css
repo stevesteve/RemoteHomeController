@@ -32,8 +32,11 @@
 	display: none;
 }
 .category .list-favorites {
-	padding-top: 40px;
-	min-height: 10px;
+	margin-top: 40px;
+	min-height: 100px;
+}
+.editable .list-favorites {
+	outline: 1px solid black;
 }
 
 /* ---- FAVORITES ---- */
@@ -87,6 +90,7 @@
 	width: 128px;
 }
 .category .btn-delete-category,
+.category .favorite .btn-move-fav,
 .category .favorite .btn-edit-fav,
 .category .favorite .btn-delete-fav {
 	display: none;
@@ -95,9 +99,19 @@
 	right: 5px;
 	z-index: 10;
 	cursor: pointer;
+	width: 32px;
+	height: 32px;
+	z-index: 10;
 }
 .category .favorite .btn-delete-fav {
 	top: 42px;
+}
+.category .favorite .btn-move-fav {
+	top: 0px;
+	width: 128px;
+	height: 128px;
+	left: 0;
+	z-index: 1;
 }
 
 /* ---- EDIT MODE ----*/
@@ -116,11 +130,13 @@
 	display: none;
 }
 .editable .category .btn-delete-category,
+.editable .favorite .btn-move-fav,
 .editable .favorite .btn-edit-fav,
 .editable .favorite .btn-delete-fav {
 	display: block;
-	width: 32px;
-	height: 32px;
+}
+.editable .favorite.editable .btn-move-fav {
+	display: none;
 }
 .category .btn-delete-category {
 	top: 6px;
@@ -144,4 +160,5 @@
 .favorite.editable .editcontainer input[type=text] {
 	display: block;
 	width: 200px;
+	z-index: 5;
 }
